@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import Home from './router/home/home.component';
+import BikeStations from './router/bike-stations/bike-stations.component';
+import BikeLanes from './router/bike-lanes/bike-lanes.component';
+import Tourisms from './router/tourisms/tourisms.style';
+
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	// navigator.geolocation.getCurrentPosition(function (position) {
+	// 	console.log(position.coords.latitude, position.coords.longitude);
+	// });
+	// const dispatch = useDispatch();
+	// useEffect(() => {
+	// 	dispatch(fetchAllBikeStations());
+	// }, []);
+
+	return (
+		<div className="App">
+			<Routes>
+				<Route path="/" element={<Home />}></Route>
+				<Route path="/bikeStations" element={<BikeStations />}></Route>
+				<Route path="/bikeLanes" element={<BikeLanes />}></Route>
+				<Route path="/tourisms" element={<Tourisms />}></Route>
+			</Routes>
+		</div>
+	);
 }
 
 export default App;

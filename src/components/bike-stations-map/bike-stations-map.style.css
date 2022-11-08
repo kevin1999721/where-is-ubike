@@ -1,0 +1,49 @@
+.marker-container {
+	width: unset !important;
+	height: unset !important;
+
+	display: flex;
+	background-color: transparent;
+	position: relative;
+}
+
+.marker-container svg {
+	z-index: 0;
+}
+
+.marker-container span {
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+	font-style: italic;
+	font-weight: 900;
+	font-size: 14px;
+	text-align: center;
+	position: absolute;
+}
+
+.marker-container.return svg path {
+	fill: #000;
+}
+
+.marker-container.return span {
+	color: #fed801;
+}
+
+.marker-container.empty svg path {
+	fill: #d2d2d2;
+}
+
+.leaflet-popup-content {
+	font-family: 'Noto Sans TC';
+	font-weight: 400;
+	font-size: 13px;
+	color: #000000;
+}
+
+.leaflet-popup-content .availability {
+	margin-left: 5px;
+	font-style: italic;
+	font-weight: 900;
+	font-size: 15px;
+}
