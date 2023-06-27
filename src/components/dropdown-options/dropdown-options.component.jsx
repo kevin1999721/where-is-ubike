@@ -1,14 +1,24 @@
 import { useState, useRef, useEffect } from 'react';
 import { DropdownOptionsContainer, OptionContainer } from './dropdown-options.style';
 
-const DropdownOptions = ({ options, setSelectedOptionText, setIsDropdownOpen }) => {
-	const [clickedIndex, setClickedIndex] = useState(-1);
+const DropdownOptions = ({
+	options,
+	setSelectedOptionText,
+	setIsDropdownOpen,
+	setSelectedOption,
+	selectedOptionKey,
+	setSelectedOptionKey,
+	setIsCardsListOpen,
+}) => {
 	const dropdownOptionsRef = useRef(null);
-	const onOptionClicked = (index, optionText) => {
-		return () => {
-			setClickedIndex(index);
+
+	const onOptionClicked = (option, optionKey, optionText) => {
+		return e => {
+			setSelectedOption(option);
+			setSelectedOptionKey(optionKey);
 			setSelectedOptionText(optionText);
 			setIsDropdownOpen(false);
+			setIsCardsListOpen(true);
 		};
 	};
 
@@ -27,8 +37,8 @@ const DropdownOptions = ({ options, setSelectedOptionText, setIsDropdownOpen }) 
 				return (
 					<OptionContainer
 						key={cityID}
-						isClicked={clickedIndex === index}
-						onClick={onOptionClicked(index, cityName)}
+						isClicked={selectedOptionKey === cityID}
+						onClick={onOptionClicked(option, cityID, cityName)}
 					>
 						{cityName}
 					</OptionContainer>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectBikeLanes } from '../../store/bike/bike.select';
 import {
 	fetchAllBikeStations,
 	fetchAllBikeAvailability,
@@ -17,6 +18,7 @@ const BikeStations = () => {
 	const dispatch = useDispatch();
 	const [bikeDataType, setBikeDataType] = useState(MAP_BIKE_DATA_TYPE.AVAILABLE_RENT);
 	const [isShowBikeLanes, setIsShowBikeLanes] = useState(false);
+	const bikeLanes = useSelector(selectBikeLanes);
 
 	useEffect(() => {
 		dispatch(fetchAllBikeStations(TDX_BIKE_API_TYPE.STAION));
@@ -24,9 +26,10 @@ const BikeStations = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!isShowBikeLanes) return;
-		dispatch(fetchAllBikeLanes(TDX_BIKE_API_TYPE.CYCLING_SHAPE));
-	}, [isShowBikeLanes]);
+		if (isShowBikeLanes && !bikeLanes) {
+			dispatch(fetchAllBikeLanes(TDX_BIKE_API_TYPE.CYCLING_SHAPE));
+		}
+	}, [isShowBikeLanes, selectBikeLanes]);
 
 	return (
 		<BikeStationsContainer>

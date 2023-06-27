@@ -70,6 +70,7 @@ export const fetchAllCitiesBikeData = async (bikeApiType, addintionlParameters =
 			const { City: city } = item;
 			const apiUrl = TDX_BIKE_API_URL[bikeApiType] + city;
 			const fetchUrl = combineUrlAndParameters(apiUrl, apiParameters);
+
 			const response = await fetch(fetchUrl, {
 				headers: { authorization: `Bearer ${accessToken}` },
 			});

@@ -1,0 +1,3 @@
+export const USER_ACTION_TYPE = {
+	SET_USER_GEOLOCATION: 'user/SET_USER_GEOLOCATION',
+};

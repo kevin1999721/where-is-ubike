@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState } from 'react';
 
 import { ReactComponent as SearchIcon } from '../../assets/icon/search.svg';
 import StationOptions from '../station-options/station-options.component';
@@ -16,7 +16,7 @@ const StationSearchForm = ({ setSearchedItem }) => {
 	const [searchString, setSearchString] = useState('');
 	const [selectedOption, setSelectedOption] = useState(null);
 
-	const onSearchInputChange = useMemo(() => {
+	const onSearchInputChange = (() => {
 		let setSearchStringTimer = null;
 
 		return e => {
@@ -27,13 +27,12 @@ const StationSearchForm = ({ setSearchedItem }) => {
 
 			setSearchStringTimer = setTimeout(() => {
 				setSearchString(e.target.value);
-			}, 500);
+			}, 1000);
 		};
-	}, []);
+	})();
 
-	const onOptionClick = useCallback(station => {
+	const onOptionClick = station => {
 		return () => {
-			console.log('click fire!');
 			const {
 				StationName: { Zh_tw: stationName },
 			} = station;
@@ -43,7 +42,7 @@ const StationSearchForm = ({ setSearchedItem }) => {
 			setSelectedOption(station);
 			setIsDropDownOpen(false);
 		};
-	}, []);
+	};
 
 	const onFormSubmit = e => {
 		e.preventDefault();

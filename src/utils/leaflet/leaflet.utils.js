@@ -12,10 +12,7 @@ export const useMap = (center = [25.03361, 121.56444]) => {
 	useEffect(() => {
 		let m = L.map('map').setView(center, 15);
 
-		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution:
-				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-		}).addTo(m);
+		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m);
 
 		setMap(m);
 
