@@ -4,6 +4,7 @@ export const DefaultHeaderContainer = styled.header`
 	width: 100%;
 	padding: 10px;
 	background-color: #fed801;
+	z-index: 10;
 `;
 
 export const HeaderItemsContainer = styled.div`

@@ -17,6 +17,11 @@ export const SelectedOption = styled.div`
 	color: #ffffff;
 	background-color: #000000;
 	cursor: pointer;
+
+	@media (max-width: 768px) {
+		width: 95px;
+		padding: 0 10px;
+	}
 `;
 
 export const DropdownIconContainer = styled.div`
@@ -40,4 +45,8 @@ export const DropdownIconContainer = styled.div`
 		css`
 			transform: rotate(180deg);
 		`};
+
+	@media (max-width: 768px) {
+		right: 0px;
+	}
 `;

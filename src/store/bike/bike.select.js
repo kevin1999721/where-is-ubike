@@ -72,3 +72,15 @@ export const selectBikeLanes = createSelector([selectBike], bike => {
 	});
 	return bikeLanesSlice;
 });
+
+export const selectBikeLanesSortByCity = createSelector([selectBikeLanes], bikeLanes => {
+	if (!bikeLanes) return null;
+	return bikeLanes.reduce((pre, cur) => {
+		const { CityCode: cityCode } = cur;
+		if (pre[cityCode]) {
+			return { ...pre, [cityCode]: [...pre[cityCode], cur] };
+		} else {
+			return { ...pre, [cityCode]: [cur] };
+		}
+	}, {});
+});

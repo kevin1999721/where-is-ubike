@@ -9,7 +9,7 @@ export const SwitchButtonContainer = styled.div`
 	color: #ffffff;
 	cursor: pointer;
 	position: relative;
-	// transition: 0.5s;
+	transition: 0.2s;
 
 	${({ isClick }) =>
 		isClick &&

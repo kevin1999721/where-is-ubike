@@ -9,6 +9,7 @@ export const DropdownOptionsContainer = styled.ul`
 	top: 110%;
 	overflow: auto;
 	outline: none;
+	z-index: 5;
 `;
 
 export const OptionContainer = styled.li`

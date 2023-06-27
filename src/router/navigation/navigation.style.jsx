@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const NavigationContainer = styled.nav`
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 25px;
 `;
 
 export const NavLink = styled(Link)`

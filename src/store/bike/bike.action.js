@@ -1,6 +1,6 @@
 import { BIKE_ACTION_TYPE } from './bike.type';
 import { createAction } from '../../utils/reducer/reducer.utils';
-import { fetchTdxBike, fetchAllCitiesBikeData } from '../../utils/tdx/tdx-bike.utils';
+import { fetchAllCitiesBikeData } from '../../utils/tdx/tdx-bike.utils';
 
 const fetchBikeStationsStart = () => createAction(BIKE_ACTION_TYPE.SET_FETCH_BIKE_STATIONS_START);
 

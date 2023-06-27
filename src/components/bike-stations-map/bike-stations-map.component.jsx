@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectBikeStationAvailability, selectBikeLanes } from '../../store/bike/bike.select';
+import { selectUserGeolocation } from '../../store/user/user.select';
 import { useMap, MAP_BIKE_DATA_TYPE } from '../../utils/leaflet/leaflet.utils';
 import L from 'leaflet';
 import 'leaflet-canvas-marker';
 import 'leaflet/dist/leaflet.css';
+import Lottie from 'lottie-web';
+import userLocation from '../../assets/icon/youbike-gps.json';
 
 import Map from '../map/map.component';
 import StationSearchForm from '../station-serach-form/station-search-form.component';
+import NearUserButton from '../near-user-button/near-user-button.component';
 
-import { MapContainer } from './bike-stations-map-style';
+import { MapContainer } from './bike-stations-map.style';
 import './bike-stations-map.style.css';
 
 const BikeStationsMap = ({ isShowBikeLanes, bikeDataType }) => {
@@ -17,6 +21,12 @@ const BikeStationsMap = ({ isShowBikeLanes, bikeDataType }) => {
 	const [searchedStation, setSearchedStation] = useState(null);
 	const bikeStationAvailability = useSelector(selectBikeStationAvailability);
 	const bikeLanes = useSelector(selectBikeLanes);
+	const userGeolocation = useSelector(selectUserGeolocation);
+
+	const onNearUserButtonClick = () => {
+		const { latitude, longitude } = userGeolocation;
+		map.setView([latitude, longitude]);
+	};
 
 	const getFilteredBikeStations = postion => {
 		return bikeStationAvailability.filter(item => {
@@ -104,6 +114,8 @@ const BikeStationsMap = ({ isShowBikeLanes, bikeDataType }) => {
 	};
 
 	useEffect(() => {
+		//when the map moveend,show the new markers.
+
 		if (!map || !bikeStationAvailability) return;
 
 		let { lat: lastLat, lng: lastLng } = map.getCenter();
@@ -144,6 +156,8 @@ const BikeStationsMap = ({ isShowBikeLanes, bikeDataType }) => {
 	}, [map, bikeStationAvailability, bikeDataType, searchedStation]);
 
 	useEffect(() => {
+		//if show bike lanes button click, and show the bike Lanes.
+
 		if (!map || !bikeLanes) return;
 
 		if (isShowBikeLanes) {
@@ -166,10 +180,34 @@ const BikeStationsMap = ({ isShowBikeLanes, bikeDataType }) => {
 		}
 	}, [map, isShowBikeLanes, bikeLanes]);
 
+	useEffect(() => {
+		// if user geolocation is exsist,create the maker of user's location.
+
+		if (!map || !userGeolocation) return;
+		const { latitude, longitude } = userGeolocation;
+		const divIconClassName = 'user-location-container';
+		const divIcon = L.divIcon({ html: '', className: divIconClassName });
+		const marker = L.marker([latitude, longitude], { icon: divIcon }).addTo(map);
+
+		Lottie.loadAnimation({
+			container: document.querySelector(`.${divIconClassName}`),
+			renderer: 'svg',
+			loop: true,
+			autoplay: true,
+			animationData: userLocation,
+		});
+
+		return () => {
+			marker.remove();
+			Lottie.destroy();
+		};
+	}, [map, userGeolocation]);
+
 	return (
 		<MapContainer>
 			<Map />
 			<StationSearchForm setSearchedItem={setSearchedStation} />
+			{userGeolocation && <NearUserButton onButtonClick={onNearUserButtonClick} />}
 		</MapContainer>
 	);
 };

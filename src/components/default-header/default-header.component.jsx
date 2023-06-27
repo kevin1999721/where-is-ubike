@@ -50,7 +50,6 @@ const DefaultHeader = ({ children }) => {
 	return (
 		<DefaultHeaderContainer>
 			<HeaderItemsContainer>
-				{}
 				<Link to={'/'}>
 					<HomeIcon />
 				</Link>
